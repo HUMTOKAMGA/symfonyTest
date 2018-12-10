@@ -1,0 +1,3 @@
+tehand_platform_homepage:
+    path:     /
+    defaults: { _controller: TEHANDPlatformBundle:Default:index }

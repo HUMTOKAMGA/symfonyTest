@@ -1,0 +1,7 @@
+tehand_platform:
+    resource: "@TEHANDPlatformBundle/Resources/config/routing.yml"
+    prefix:   /teh
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

@@ -1,0 +1,4 @@
+services:
+#    tehand_platform.example:
+#        class: TEHAND\PlatformBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
