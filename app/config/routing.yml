@@ -1,6 +1,6 @@
 tehand_platform:
     resource: "@TEHANDPlatformBundle/Resources/config/routing.yml"
-    prefix:   /teh
+    prefix:  
 
 app:
     resource: '@AppBundle/Controller/'

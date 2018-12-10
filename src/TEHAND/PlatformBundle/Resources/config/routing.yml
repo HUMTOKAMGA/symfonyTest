@@ -1,3 +1,7 @@
 tehand_platform_homepage:
     path:     /
     defaults: { _controller: TEHANDPlatformBundle:Default:index }
+
+hello_the_world:
+    path:    /hello-world
+    defaults: { _controller: TEHANDPlatformBundle:Advert:index }
