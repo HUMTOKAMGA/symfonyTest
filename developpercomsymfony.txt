@@ -5,3 +5,7 @@ https://openclassrooms.com/fr/courses/3619856-developpez-votre-site-web-avec-le-
 													"": "src/"
 													}
 composer dump-autoload
+
+****************Suppression du Cache Symfony ******************
+ prod--> php/bin/console cache:clear --env=prod
+ dev -->php/bin/console cache:clear
