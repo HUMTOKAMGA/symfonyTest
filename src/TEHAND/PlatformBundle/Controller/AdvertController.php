@@ -4,8 +4,10 @@ namespace TEHAND\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 //use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+//use Symfony\Component\HttpFoundation\RedirectResponse;
+
 
 //use Symfony\Component\HttpFoundation\Request;
 
@@ -30,12 +32,11 @@ class AdvertController extends Controller {
     
     public function viewAction($id) {
         
-//        $url = $this->get('router')->generate('tehan_platform_home');
+//        $response = new Response(json_encode(array('id' =>$id)));
+//        $response->headers->set('Content-Type','application/json');
 //        
-//        return new RedirectResponse($url);
-        
         //Pareil que ceci
-        return $this->redirectToRoute('tehan_platform_home');
+        return new JsonResponse(array('id' =>$id));
     }
 
     public function viewSlugAction($slug, $year, $_format) {
