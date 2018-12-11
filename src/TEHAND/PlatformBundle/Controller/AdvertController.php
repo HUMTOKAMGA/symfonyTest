@@ -4,7 +4,8 @@ namespace TEHAND\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 //use Symfony\Component\HttpFoundation\Request;
 
@@ -17,14 +18,24 @@ class AdvertController extends Controller {
         return new Response($content);
     }
 
-    public function viewAction($id, Request $request) {
+//    public function viewAction($id, Request $request) {
+//        
+//        $tag = $request->query->get('tag');        
+//        return $this->render(
+//                'TEHANDPlatformBundle:Advert:view.html.twig', array(
+//                    'id' => $id, 
+//                    'tag' => $tag
+//                ));
+//    }
+    
+    public function viewAction($id) {
         
-        $tag = $request->query->get('tag');        
-        return $this->render(
-                'TEHANDPlatformBundle:Advert:view.html.twig', array(
-                    'id' => $id, 
-                    'tag' => $tag
-                ));
+//        $url = $this->get('router')->generate('tehan_platform_home');
+//        
+//        return new RedirectResponse($url);
+        
+        //Pareil que ceci
+        return $this->redirectToRoute('tehan_platform_home');
     }
 
     public function viewSlugAction($slug, $year, $_format) {
