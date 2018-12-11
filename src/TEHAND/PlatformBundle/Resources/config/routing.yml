@@ -9,7 +9,7 @@ tehan_platform_home:
     defaults: { _controller: TEHANDPlatformBundle:Advert:index }
     
 tehan_platform_view:
-    path:      /advert/{id}
+    path:      /a/{id}
     defaults: { _controller: TEHANDPlatformBundle:Advert:view }
     
 tehan_platform_view_slug:

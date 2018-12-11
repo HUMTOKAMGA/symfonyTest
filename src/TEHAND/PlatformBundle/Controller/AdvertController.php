@@ -9,7 +9,8 @@ class AdvertController extends Controller {
 
     public function indexAction() {
         $content = $this->get('templating')
-                        ->render('TEHANDPlatformBundle:Advert:index.html.twig', array('nom' => 'Andrew'));
+                        ->render('TEHANDPlatformBundle:Advert:index.html.twig', 
+                                    array('id' => 5,'nom' => 'Andrew'));
 //        return new Response("Notre propre Hello World !");
         return new Response($content);
     }
