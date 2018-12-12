@@ -4,8 +4,8 @@ namespace TEHAND\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-//use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 //use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
@@ -19,8 +19,22 @@ class AdvertController extends Controller {
 //        return new Response("Notre propre Hello World !");
         return new Response($content);
     }
+    
+     public function viewAction($id, Request $request) {
+       $session = $request->getSession();
+       
+       $userId =$session->get('user_id');
+       $session->set('user_id',91);
+       return new Response("<body>Je suis une page de test, je n'ai rien à dire</body>");
+    }
 
-//    public function viewAction($id, Request $request) {
+    public function viewSlugAction($slug, $year, $_format) {
+        return new Response(
+                "Je suis capable d'afficher l'annonce correspondant au slug" . $slug
+                . "crée en " . $year . " et au format " . $_format . ".");
+    }
+    
+    //    public function viewAction($id, Request $request) {
 //        
 //        $tag = $request->query->get('tag');        
 //        return $this->render(
@@ -30,19 +44,13 @@ class AdvertController extends Controller {
 //                ));
 //    }
     
-    public function viewAction($id) {
-        
-//        $response = new Response(json_encode(array('id' =>$id)));
-//        $response->headers->set('Content-Type','application/json');
+//    public function viewAction($id) {
 //        
-        //Pareil que ceci
-        return new JsonResponse(array('id' =>$id));
-    }
-
-    public function viewSlugAction($slug, $year, $_format) {
-        return new Response(
-                "Je suis capable d'afficher l'annonce correspondant au slug" . $slug
-                . "crée en " . $year . " et au format " . $_format . ".");
-    }
+////        $response = new Response(json_encode(array('id' =>$id)));
+////        $response->headers->set('Content-Type','application/json');
+////        
+//        //Pareil que ceci
+//        return new JsonResponse(array('id' =>$id));
+//    }
 
 }
