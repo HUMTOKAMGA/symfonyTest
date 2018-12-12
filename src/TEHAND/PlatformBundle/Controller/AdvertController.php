@@ -6,17 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 //use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 //use Symfony\Component\HttpFoundation\RedirectResponse;
 //use Symfony\Component\HttpFoundation\Request;
 
 class AdvertController extends Controller {
 
-    public function indexAction() {
-        $content = $this->get('templating')
-                ->render('TEHANDPlatformBundle:Advert:index.html.twig', array('id' => 5, 'nom' => 'Andrew'));
-//        return new Response("Notre propre Hello World !");
-        return new Response($content);
+    public function indexAction($page) {
+        
+        if($page < 1){
+            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+        }
+        
+        return $this->render('TEHANDPlatformBundle:Advert:index.html.twig');
     }
 
     public function viewAction($id) {
@@ -43,7 +46,7 @@ class AdvertController extends Controller {
     }
 
     /*
-     * @id the parrams of edit action
+     * @id is the parrams of edit action
      * function use to edit annonce
      */
     public function editAction($id, Request $request) {
