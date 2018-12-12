@@ -1,15 +1,19 @@
-<html>
-    <head>
-        <title>Bienvenue sur ma première page avec OpenClassrooms !</title>
-    </head>
-    <body>
-        <h1>Salut {{nom}}</h1>
-    </body>
+
+{% extends "TEHANDPlatformBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} | Index{% endblock %}
+
+{% block body %}
+    <h1>Salut {{user.nom}}</h1>
+    Notre plateforme est vide pour le moment mais celà viendra.
     <p><a href="{{
                     path('tehan_platform_view',{'id' :id})
           }}">
-            Lien vers l'annonce de {{nom}} d'id {{ id }} 
+            Lien vers l'annonce de {{user.prenom}} d'id {{ id }} 
         </a>
     </p>
-</body>
-</html>
+{% endblock %}
+
+{% block footer %}
+    <div>{{ parent() }} | Dec 2018</div>
+{% endblock %}

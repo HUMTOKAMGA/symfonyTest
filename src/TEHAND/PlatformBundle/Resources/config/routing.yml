@@ -5,7 +5,7 @@ tehanbye_the_world:
     # src/OC/PlatformBundle/Resources/config/routing.yml
 
 tehan_platform_home:
-    path:      /{page}
+    path:      /{page}/{id}
     defaults: 
         _controller: TEHANDPlatformBundle:Advert:index 
         page:    1

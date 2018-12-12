@@ -13,13 +13,20 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdvertController extends Controller {
 
-    public function indexAction($page) {
-        
-        if($page < 1){
-            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+    public function indexAction($page, $id) {
+
+        if ($page < 1) {
+            throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
         }
-        
-        return $this->render('TEHANDPlatformBundle:Advert:index.html.twig');
+
+        return $this->render('TEHANDPlatformBundle:Advert:index.html.twig', array(
+                    'id' => $id,
+                    'nom' => "serge",
+                    'user' => array(
+                        'nom' => "Andrew",
+                        'prenom' => "HUMTO"
+                    )
+        ));
     }
 
     public function viewAction($id) {
@@ -32,16 +39,17 @@ class AdvertController extends Controller {
     /*
      * function use to add annonce
      */
+
     public function addAction(Request $request) {
-        
-        if($request->isMethod('POST')){
-            $request->getSession()->getFlashBag()->add('notice','Annonce bien enregistrée');
-            
+
+        if ($request->isMethod('POST')) {
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée');
+
             return $this->redirectToRoute('tehan_platform_view', array(
-                'id' => 5
+                        'id' => 5
             ));
         }
-        
+
         return $this->redirectToRoute('TEHANDPlatformBundle:Advert:add.html.twig');
     }
 
@@ -49,25 +57,26 @@ class AdvertController extends Controller {
      * @id is the parrams of edit action
      * function use to edit annonce
      */
+
     public function editAction($id, Request $request) {
-        
-        if($request->isMethod('POST')){
-            $request->getSession()->getFlashBag()->add('notice','Annonce bien modifiée');
-            
+
+        if ($request->isMethod('POST')) {
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée');
+
             return $this->redirectToRoute('tehan_platform_view', array(
-                'id' => 5
+                        'id' => 5
             ));
         }
-        
+
         return $this->redirectToRoute('TEHANDPlatformBundle:Advert:edit.html.twig');
     }
-    
-    public function deleteAction($id){
-        
-        
+
+    public function deleteAction($id) {
+
+
         return $this->render('TEHANDPlatformBundle:Advert:delete.html.twig');
     }
-    
+
     public function viewSlugAction($slug, $year, $_format) {
         return new Response(
                 "Je suis capable d'afficher l'annonce correspondant au slug" . $slug
@@ -99,8 +108,6 @@ class AdvertController extends Controller {
 //       $session->set('user_id',91);
 //       return new Response("<body>Je suis une page de test, je n'ai rien à dire</body>");
 //    }
-    
-    
 //     public function addAction(Request $request) {
 //        /*
 //         * gestion de variable flash en session

@@ -9,3 +9,19 @@ composer dump-autoload
 ****************Suppression du Cache Symfony ******************
  prod--> php/bin/console cache:clear --env=prod
  dev -->php/bin/console cache:clear
+ 
+ **********Conditions************
+ {% if membre.age < 12 %}
+  Il faut avoir au moins 12 ans pour ce film.
+{% elseif membre.age < 18 %}
+  OK bon film.
+{% else %}
+  Un peu vieux pour voir ce film non ?
+{% endif %}
+
+************Boucle**************
+<select>
+  {% for valeur, option in liste_options %}
+    <option value="{{ valeur }}">{{ option }}</option>
+  {% endfor %}
+</select>
