@@ -5,7 +5,7 @@ tehanbye_the_world:
     # src/OC/PlatformBundle/Resources/config/routing.yml
 
 tehan_platform_home:
-    path:      /{page}/{id}
+    path:      /{page}
     defaults: 
         _controller: TEHANDPlatformBundle:Advert:index 
         page:    1
@@ -39,11 +39,11 @@ tehan_platform_edit:
     defaults:  
         _controller: TEHANDPlatformBundle:Advert:edit
     requirements:
-        id: \id+
+        id: \d+
         
 tehan_platform_delete:
     path:      /delete/{id}
     defaults:  
         _controller: TEHANDPlatformBundle:Advert:delete
     requirements:
-        id: \id+
+        id: \d+

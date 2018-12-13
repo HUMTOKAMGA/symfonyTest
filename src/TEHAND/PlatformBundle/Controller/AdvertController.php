@@ -6,33 +6,92 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 //use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+//use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 //use Symfony\Component\HttpFoundation\RedirectResponse;
 //use Symfony\Component\HttpFoundation\Request;
 
 class AdvertController extends Controller {
 
-    public function indexAction($page, $id) {
+    public function indexAction($page) {
+//
+//        if ($page < 1) {
+//            throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
+//        }
 
-        if ($page < 1) {
-            throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
-        }
+        $listAdverts = array(
+            array(
+                'title' => 'Recherche développeur symfony',
+                'id' => 1,
+                'author' => "Alexandre",
+                'content' => "Je recherche à present un dev "
+                . "fullstack plein demandant mission immédiat",
+                'date' => new \Datetime()),
+            array(
+                'title' => 'Recherche développeur Angular',
+                'id' => 2,
+                'author' => "Paul",
+                'content' => "Je recherche à present un dev frontEnd "
+                . "plein demandant mission immédiat",
+                'date' => new \Datetime()),
+            array(
+                'title' => 'Recherche développeur java',
+                'id' => 3,
+                'author' => "Andrew",
+                'content' => "Je recherche à present un dev BackEnd"
+                . " plein demandant mission immédiat",
+                'date' => new \Datetime())
+        );
+
 
         return $this->render('TEHANDPlatformBundle:Advert:index.html.twig', array(
-                    'id' => $id,
-                    'nom' => "serge",
-                    'user' => array(
-                        'nom' => "Andrew",
-                        'prenom' => "HUMTO"
-                    )
+                    'listAdverts' => $listAdverts
+        ));
+    }
+
+    public function menuAction($limit) {
+
+        $listAdverts = array(
+            array('id' => 2, 'title' => 'Recherche développeur Synfony'),
+            array('id' => 1, 'title' => 'Mission de webmaster'),
+            array('id' => 3, 'title' => 'Offre de stage webdesigner')
+        );
+
+        return $this->render('TEHANDPlatformBundle:Advert:menu.html.twig', array(
+                    'listAdverts' => $listAdverts
         ));
     }
 
     public function viewAction($id) {
+        $adverts = array(
+            array(
+                'title' => 'Recherche développeur symfony',
+                'id' => 1,
+                'author' => "Alexandre",
+                'content' => "Je recherche à present un dev "
+                . "fullstack plein demandant mission immédiat",
+                'date' => new \Datetime(),
+                'param' => $id),
+            array(
+                'title' => 'Recherche développeur Angular',
+                'id' => 2,
+                'author' => "Paul",
+                'content' => "Je recherche à present un dev frontEnd "
+                . "plein demandant mission immédiat",
+                'date' => new \Datetime(),
+                'param' => $id),
+            array(
+                'title' => 'Recherche développeur java',
+                'id' => 3,
+                'author' => "Andrew",
+                'content' => "Je recherche à present un dev BackEnd"
+                . " plein demandant mission immédiat",
+                'date' => new \Datetime(),
+                'param' => $id),
+        );
 
         return $this->render('TEHANDPlatformBundle:Advert:view.html.twig', array(
-                    'id' => $id
+                    'adverts' => $adverts
         ));
     }
 
@@ -50,7 +109,9 @@ class AdvertController extends Controller {
             ));
         }
 
-        return $this->redirectToRoute('TEHANDPlatformBundle:Advert:add.html.twig');
+        return $this->render('TEHANDPlatformBundle:Advert:add.html.twig',array(
+            
+        ));
     }
 
     /*
@@ -60,15 +121,17 @@ class AdvertController extends Controller {
 
     public function editAction($id, Request $request) {
 
-        if ($request->isMethod('POST')) {
-            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée');
+        $advert = array(
+            'title' => 'Recherche développpeur Symfony',
+            'id' => $id,
+            'author' => 'Alexandre',
+            'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',
+            'date' => new \Datetime()
+        );
 
-            return $this->redirectToRoute('tehan_platform_view', array(
-                        'id' => 5
-            ));
-        }
-
-        return $this->redirectToRoute('TEHANDPlatformBundle:Advert:edit.html.twig');
+        return $this->render('TEHANDPlatformBundle:Advert:edit.html.twig',array(
+            'advert' =>$advert
+        ));
     }
 
     public function deleteAction($id) {

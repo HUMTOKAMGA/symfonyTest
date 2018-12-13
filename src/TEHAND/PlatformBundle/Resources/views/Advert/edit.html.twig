@@ -1,8 +1,27 @@
-<?php
+{# src/OC/PlatformBundle/Resources/views/Advert/edit.html.twig #}
 
-/* 
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
+{% extends "TEHANDPlatformBundle::layout.html.twig" %}
 
+{% block title %}
+  Modifier une annonce - {{ parent() }}
+{% endblock %}
+
+{% block tehandplatform_body %}
+
+  <h2>Modifier une annonce</h2>
+
+  {{ include("TEHANDPlatformBundle:Advert:form.html.twig") }}
+
+  <p>
+    Vous éditez une annonce déjà existante, merci de ne pas changer
+    l'esprit général de l'annonce déjà publiée.
+  </p>
+
+  <p>
+    <a href="{{ path('tehan_platform_view', {'id': advert.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à l'annonce
+    </a>
+  </p>
+
+{% endblock %}
