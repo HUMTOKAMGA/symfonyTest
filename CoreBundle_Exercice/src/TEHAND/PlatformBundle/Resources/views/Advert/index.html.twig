@@ -1,0 +1,26 @@
+
+{% extends "TEHANDPlatformBundle::layout.html.twig" %}
+
+{% block title %}Accueil | {{ parent() }}{% endblock %}
+
+{% block tehandplatform_body %}
+    
+    <h1>Liste des annonces</h1>
+    
+    <ul>
+        {% for advert in listAdverts %}
+            <li>
+                <a href="{{ path('tehan_platform_view', {'id': advert.id}) }}">
+                    {{ advert.title }}
+                </a>
+                par {{ advert.author }},
+                le  {{ advert.date|date('d/m/Y') }}
+            </li>
+        {% else %}
+            <li>
+                Pas (encore !) d'annonces
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

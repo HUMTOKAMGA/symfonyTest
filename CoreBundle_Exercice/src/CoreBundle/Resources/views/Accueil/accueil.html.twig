@@ -1,0 +1,21 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil Général- {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  <h2>Homepage</h2>
+  <div>
+  {% for message in app.session.flashbag.get('info') %}
+  <p><strong>Message flash : {{ message }}</strong></p>
+  {% endfor %}
+  </div>
+
+
+  <h3>Les trois dernières annonces :</h3>
+  {{ render(controller('TEHANDPlatformBundle:Advert:menu', {'limit': 3})) }}
+
+  <h3><a href="{{ path('core_contact') }}"> Nous contacter</a> </h3>
+
+{% endblock %}

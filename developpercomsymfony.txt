@@ -7,8 +7,8 @@ https://openclassrooms.com/fr/courses/3619856-developpez-votre-site-web-avec-le-
 composer dump-autoload
 
 ****************Suppression du Cache Symfony ******************
- prod--> php/bin/console cache:clear --env=prod
- dev -->php/bin/console cache:clear
+ prod--> php bin/console cache:clear --env=prod
+ dev -->php bin/console cache:clear
  
  **********Conditions************
  {% if membre.age < 12 %}
@@ -25,3 +25,18 @@ composer dump-autoload
     <option value="{{ valeur }}">{{ option }}</option>
   {% endfor %}
 </select>
+
+*************génération Entity console***********
+php bin/console doctrine:database:create
+
+*********création table bd**********
+{% prepation de la requête à utiliser %}
+
+php bin/console doctrine:schema:update --dump-sql
+
+{% application de la requête en base de données %}
+
+php bin/console doctrine:schema:update --force
+
+*********Modification entities******
+php bin/console doctrine:generate:entities OCPlatformBundle:Advert

@@ -13,11 +13,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AdvertController extends Controller {
 
-    public function indexAction($page) {
+        public function indexAction($page) {
 //
 //        if ($page < 1) {
 //            throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
 //        }
+            
+            //recupération de l'entity Manager de doctrine
+            $em = $this->getDoctrine()->getManager();            
+            //recupération du repository d'un entity manager donné
+            $advertRepository = $em->getRepository('TEHANDPlatformBundle:Advert');
 
         $listAdverts = array(
             array(
@@ -101,17 +106,19 @@ class AdvertController extends Controller {
 
     public function addAction(Request $request) {
 
-        if ($request->isMethod('POST')) {
-            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée');
-
-            return $this->redirectToRoute('tehan_platform_view', array(
-                        'id' => 5
-            ));
+        //recupération du service
+        $antispam = $this->container->get('tehand_platform.antispam');
+        
+        // On part du principe que $text contient le texte d'un message quelconque
+        $text = 'qkgdfjsgfjsdguywxcbjkqsbjgqsghdvbhjkqsdqsghdjhb qksdbncqgdqsvjdbhgdqsgfqytgjknxckjc cqdsfgcuqgjkdhqsjkdquytduyqsgdkquhdihjknkcw ';
+        if ($antispam->isSpam($text)){
+            throw new \Exception('Votre méssage a été détecté comme span !');
         }
-
         return $this->render('TEHANDPlatformBundle:Advert:add.html.twig',array(
             
         ));
+        // Ici le message n'est pas un spam
+        
     }
 
     /*
@@ -184,4 +191,59 @@ class AdvertController extends Controller {
 //                    'id' => 8
 //        ));
 //    }
+    
+    
+    //debut 13 - 12 - 2018
+//    public function indexAction($page) {
+////
+////        if ($page < 1) {
+////            throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
+////        }
+//
+//        $listAdverts = array(
+//            array(
+//                'title' => 'Recherche développeur symfony',
+//                'id' => 1,
+//                'author' => "Alexandre",
+//                'content' => "Je recherche à present un dev "
+//                . "fullstack plein demandant mission immédiat",
+//                'date' => new \Datetime()),
+//            array(
+//                'title' => 'Recherche développeur Angular',
+//                'id' => 2,
+//                'author' => "Paul",
+//                'content' => "Je recherche à present un dev frontEnd "
+//                . "plein demandant mission immédiat",
+//                'date' => new \Datetime()),
+//            array(
+//                'title' => 'Recherche développeur java',
+//                'id' => 3,
+//                'author' => "Andrew",
+//                'content' => "Je recherche à present un dev BackEnd"
+//                . " plein demandant mission immédiat",
+//                'date' => new \Datetime())
+//        );
+//
+//
+//        return $this->render('TEHANDPlatformBundle:Advert:index.html.twig', array(
+//                    'listAdverts' => $listAdverts
+//        ));
+//    }
+    
+//    public function addAction(Request $request) {
+//
+//        if ($request->isMethod('POST')) {
+//            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée');
+//
+//            return $this->redirectToRoute('tehan_platform_view', array(
+//                        'id' => 5
+//            ));
+//        }
+//
+//        return $this->render('TEHANDPlatformBundle:Advert:add.html.twig',array(
+//            
+//        ));
+//    }
+    
+    // Fin 13 - 12 - 2018
 }
