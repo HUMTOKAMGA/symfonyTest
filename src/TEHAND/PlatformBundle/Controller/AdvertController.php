@@ -95,6 +95,8 @@ class AdvertController extends Controller {
 
        $advert1 = new Advert();
        
+       
+       $advert1->setDate(\DateTime::createFromFormat('d-m-Y', "02-12-2018"));
        $advert1->setTitle('Recherche développeur Symfony');
        $advert1->setAuthor('Andrew');
        $advert1->setContent("Pour mission courte");
@@ -134,6 +136,20 @@ class AdvertController extends Controller {
        return $this->render('TEHANDPlatformBundle:Advert:add.html.twig',array(
             'advert' => $advert1
         ));
+    }
+    
+    public function editImageAction($advertId) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $advert = $em->getRepository('TEHANDPlatformBundle:Advert')->find($advertId);
+        var_dump($advert);
+        
+        $advert->getImage()->setUrl('test.png');
+        
+        
+        $em->flush();
+        
+        return new Response('OK');
     }
 
     /*

@@ -47,3 +47,10 @@ tehan_platform_delete:
         _controller: TEHANDPlatformBundle:Advert:delete
     requirements:
         id: \d+
+
+tehan_platform_edit_image:
+    path:      /editimg/{id}
+    defaults:  
+        _controller: TEHANDPlatformBundle:Advert:editImage
+    requirements:
+        id: \d+

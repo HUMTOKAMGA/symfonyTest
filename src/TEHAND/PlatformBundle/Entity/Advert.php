@@ -19,11 +19,6 @@ class Advert
      */
     private $image;
  
-     /**
-     * @ORM\OneToOne(targetEntity="Image", cascade={"persist"})
-     */
-    private $image2;
-    
     /**
      * @var int
      *
@@ -36,14 +31,14 @@ class Advert
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="date", type="datetime", nullable=true)
      */
     private $date;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
     private $title;
 
@@ -221,27 +216,5 @@ class Advert
         return $this->image;
     }
 
-    /**
-     * Set image2
-     *
-     * @param \TEHAND\PlatformBundle\Entity\Image $image2
-     *
-     * @return Advert
-     */
-    public function setImage2(\TEHAND\PlatformBundle\Entity\Image $image2 = null)
-    {
-        $this->image2 = $image2;
-
-        return $this;
-    }
-
-    /**
-     * Get image2
-     *
-     * @return \TEHAND\PlatformBundle\Entity\Image
-     */
-    public function getImage2()
-    {
-        return $this->image2;
-    }
+    
 }

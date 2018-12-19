@@ -7,24 +7,36 @@
 {% endblock %}
 
 {% block tehandplatform_body %}
-            <h2>{{ adverts.title }}</h2>
-            <i>Par {{ adverts.author }}, le {{ adverts.date|date('d/m/Y') }}</i>
-
-            <div class="well">
-                {{ adverts.content }}
+    <div class="grid">
+        <div class="row align-items-start">
+            <div class="col-md-3">
+                {% if adverts.image is not null %}
+                    <img src="{{ adverts.image.url }}" style="width: 113%" alt="{{ adverts.image.alt }}">
+                {% endif %}
             </div>
-            <p>
-                <a href="{{ path('tehan_platform_home') }}" class="btn btn-default">
-                    <i class="glyphicon glyphicon-chevron-left"></i>
-                    Retour à la liste
-                </a>
-                <a href="{{ path('tehan_platform_edit', {'id': adverts.id}) }}" class="btn btn-default">
-                    <i class="glyphicon glyphicon-edit"></i>
-                    Modifier l'annonce
-                </a>
-                <a href="{{ path('tehan_platform_delete', {'id': adverts.id}) }}" class="btn btn-danger">
-                    <i class="glyphicon glyphicon-trash"></i>
-                    Supprimer l'annonce
-                </a>
-            </p>
+            <div class="col-md-9">
+                <h2>{{ adverts.title }}</h2>
+                 <i>Par {{ adverts.author }}, le {{ adverts.date|date('d/m/Y') }}</i>
+            </div>
+        </div>
+    </div> 
+   
+
+    <div class="well">
+        {{ adverts.content }}
+    </div>
+    <p>
+        <a href="{{ path('tehan_platform_home') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la liste
+        </a>
+        <a href="{{ path('tehan_platform_edit', {'id': adverts.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-edit"></i>
+            Modifier l'annonce
+        </a>
+        <a href="{{ path('tehan_platform_delete', {'id': adverts.id}) }}" class="btn btn-danger">
+            <i class="glyphicon glyphicon-trash"></i>
+            Supprimer l'annonce
+        </a>
+    </p>
 {% endblock %}
