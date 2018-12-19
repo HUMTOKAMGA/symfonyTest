@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use TEHAND\PlatformBundle\Entity\Advert;
 use TEHAND\PlatformBundle\Entity\Image;
+use TEHAND\PlatformBundle\Entity\Application;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
@@ -108,11 +109,25 @@ class AdvertController extends Controller {
        
        $advert1->setImage($image);
         
+       
+       $application1 = new Application();
+       $application1->getAuthor('Marine');
+       $application1->getContent("J'ai toutes les qualitées requises");
+       
+       $application2 = new Application();
+       $application2->getAuthor('Pierre');
+       $application2->getContent("Je suis très motivé");
+       
+       $application1->setAdvert($advert1);
+       $application2->setAdvert($advert1);
        //récupération de l'entity manager
        $em = $this->getDoctrine()->getManager();
        
        //Persistance de l'entité
        $em->persist($advert1);
+       
+       $em->persist($application1);
+       $em->persist($application2);
 
        //visualisation de l'annonce dont l'id est 5
       // $advert2 = $em->getRepository('TEHANDPlatformBundle:Advert')->find(5);
