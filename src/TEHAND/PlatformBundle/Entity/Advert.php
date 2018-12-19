@@ -3,15 +3,27 @@
 namespace TEHAND\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use TEHAND\PlatformBundle\Entity\Image;
 
 /**
  * Advert
  *
  * @ORM\Table(name="advert")
- * @ORM\Entity(readOnly=true)
+ * @ORM\Entity(repositoryClass="TEHAND\PlatformBundle\Repository\AdvertRepository")
  */
-class Advert {
-
+class Advert
+{
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Image", cascade={"persist"})
+     */
+    private $image;
+ 
+     /**
+     * @ORM\OneToOne(targetEntity="Image", cascade={"persist"})
+     */
+    private $image2;
+    
     /**
      * @var int
      *
@@ -50,24 +62,18 @@ class Advert {
     private $content;
 
     /**
+     *
      * @ORM\Column(name="published", type="boolean")
      */
     private $published = true;
-
-    /**
-     * construct = defauld return the date of current day
-     */
-    public function __construct() {
-
-        $this->date = new \DateTime;
-    }
-
+    
     /**
      * Get id
      *
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -78,7 +84,8 @@ class Advert {
      *
      * @return Advert
      */
-    public function setDate($date) {
+    public function setDate($date)
+    {
         $this->date = $date;
 
         return $this;
@@ -89,7 +96,8 @@ class Advert {
      *
      * @return \DateTime
      */
-    public function getDate() {
+    public function getDate()
+    {
         return $this->date;
     }
 
@@ -100,7 +108,8 @@ class Advert {
      *
      * @return Advert
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
 
         return $this;
@@ -111,7 +120,8 @@ class Advert {
      *
      * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
@@ -122,7 +132,8 @@ class Advert {
      *
      * @return Advert
      */
-    public function setAuthor($author) {
+    public function setAuthor($author)
+    {
         $this->author = $author;
 
         return $this;
@@ -133,7 +144,8 @@ class Advert {
      *
      * @return string
      */
-    public function getAuthor() {
+    public function getAuthor()
+    {
         return $this->author;
     }
 
@@ -144,7 +156,8 @@ class Advert {
      *
      * @return Advert
      */
-    public function setContent($content) {
+    public function setContent($content)
+    {
         $this->content = $content;
 
         return $this;
@@ -155,10 +168,10 @@ class Advert {
      *
      * @return string
      */
-    public function getContent() {
+    public function getContent()
+    {
         return $this->content;
     }
-
 
     /**
      * Set published
@@ -182,5 +195,53 @@ class Advert {
     public function getPublished()
     {
         return $this->published;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \TEHAND\PlatformBundle\Entity\Image $image
+     *
+     * @return Advert
+     */
+    public function setImage(\TEHAND\PlatformBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \TEHAND\PlatformBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set image2
+     *
+     * @param \TEHAND\PlatformBundle\Entity\Image $image2
+     *
+     * @return Advert
+     */
+    public function setImage2(\TEHAND\PlatformBundle\Entity\Image $image2 = null)
+    {
+        $this->image2 = $image2;
+
+        return $this;
+    }
+
+    /**
+     * Get image2
+     *
+     * @return \TEHAND\PlatformBundle\Entity\Image
+     */
+    public function getImage2()
+    {
+        return $this->image2;
     }
 }

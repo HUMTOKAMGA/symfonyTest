@@ -6,6 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 //use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use TEHAND\PlatformBundle\Entity\Advert;
+use TEHAND\PlatformBundle\Entity\Image;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+
 
 //use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 //use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -68,33 +73,15 @@ class AdvertController extends Controller {
     }
 
     public function viewAction($id) {
-        $adverts = array(
-            array(
-                'title' => 'Recherche développeur symfony',
-                'id' => 1,
-                'author' => "Alexandre",
-                'content' => "Je recherche à present un dev "
-                . "fullstack plein demandant mission immédiat",
-                'date' => new \Datetime(),
-                'param' => $id),
-            array(
-                'title' => 'Recherche développeur Angular',
-                'id' => 2,
-                'author' => "Paul",
-                'content' => "Je recherche à present un dev frontEnd "
-                . "plein demandant mission immédiat",
-                'date' => new \Datetime(),
-                'param' => $id),
-            array(
-                'title' => 'Recherche développeur java',
-                'id' => 3,
-                'author' => "Andrew",
-                'content' => "Je recherche à present un dev BackEnd"
-                . " plein demandant mission immédiat",
-                'date' => new \Datetime(),
-                'param' => $id),
-        );
-
+        $repository = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('TEHANDPlatformBundle:Advert');
+        
+        $adverts = $repository->find($id);
+        
+        if(null ===$adverts){
+            throw new NotFoundHttpException("L'annonce d'id '".$id."' n'existe pas.");
+        }
         return $this->render('TEHANDPlatformBundle:Advert:view.html.twig', array(
                     'adverts' => $adverts
         ));
@@ -106,19 +93,47 @@ class AdvertController extends Controller {
 
     public function addAction(Request $request) {
 
-        //recupération du service
-        $antispam = $this->container->get('tehand_platform.antispam');
+       $advert1 = new Advert();
+       
+       $advert1->setTitle('Recherche développeur Symfony');
+       $advert1->setAuthor('Andrew');
+       $advert1->setContent("Pour mission courte");
+       
+       $image = new Image();
+       
+       $image->setUrl("http://sdz-upload.s3.amazonaws.com/prod/upload/job-de-reve.jpg");
+       $image->setAlt("Job de rêve");
+       
+       $advert1->setImage($image);
         
-        // On part du principe que $text contient le texte d'un message quelconque
-        $text = 'qkgdfjsgfjsdguywxcbjkqsbjgqsghdvbhjkqsdqsghdjhb qksdbncqgdqsvjdbhgdqsgfqytgjknxckjc cqdsfgcuqgjkdhqsjkdquytduyqsgdkquhdihjknkcw ';
-        if ($antispam->isSpam($text)){
-            throw new \Exception('Votre méssage a été détecté comme span !');
-        }
-        return $this->render('TEHANDPlatformBundle:Advert:add.html.twig',array(
-            
+       //récupération de l'entity manager
+       $em = $this->getDoctrine()->getManager();
+       
+       //Persistance de l'entité
+       $em->persist($advert1);
+
+       //visualisation de l'annonce dont l'id est 5
+      // $advert2 = $em->getRepository('TEHANDPlatformBundle:Advert')->find(5);
+       
+       // Je modifie l'annonce en changeant la date
+      // $advert2->setDate(new \DateTime());
+       
+       //On passe au flush tout ce qui a été persisté
+       $em->flush();
+       
+       if($request->isMethod('POST')){
+           $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+           
+           //redirection vers la page de visualisation de cette annonce
+           return $this->redirectToRoute('tehan_platform_view',array(
+               'id' => $advert1->getId()
+           ));
+       }
+       
+       //Si on n'est pas en POST, alors on affiche le formulaire
+       return $this->render('TEHANDPlatformBundle:Advert:add.html.twig',array(
+            'advert' => $advert1
         ));
-        // Ici le message n'est pas un spam
-        
     }
 
     /*
@@ -246,4 +261,59 @@ class AdvertController extends Controller {
 //    }
     
     // Fin 13 - 12 - 2018
+    
+    
+    // Debut 17-12-2018
+    
+//    public function addAction(Request $request) {
+//
+//        //recupération du service
+//        $antispam = $this->container->get('tehand_platform.antispam');
+//        
+//        // On part du principe que $text contient le texte d'un message quelconque
+//        $text = 'qkgdfjsgfjsdguywxcbjkqsbjgqsghdvbhjkqsdqsghdjhb qksdbncqgdqsvjdbhgdqsgfqytgjknxckjc cqdsfgcuqgjkdhqsjkdquytduyqsgdkquhdihjknkcw ';
+//        if ($antispam->isSpam($text)){
+//            throw new \Exception('Votre méssage a été détecté comme span !');
+//        }
+//        return $this->render('TEHANDPlatformBundle:Advert:add.html.twig',array(
+//            
+//        ));
+//        // Ici le message n'est pas un spam
+//        
+//    }
+    // Fin 17 - 12 - 2018
+    
+    //Début 18 - 12 - 2018
+//    public function viewAction($id) {
+//        $adverts = array(
+//            array(
+//                'title' => 'Recherche développeur symfony',
+//                'id' => 1,
+//                'author' => "Alexandre",
+//                'content' => "Je recherche à present un dev "
+//                . "fullstack plein demandant mission immédiat",
+//                'date' => new \Datetime(),
+//                'param' => $id),
+//            array(
+//                'title' => 'Recherche développeur Angular',
+//                'id' => 2,
+//                'author' => "Paul",
+//                'content' => "Je recherche à present un dev frontEnd "
+//                . "plein demandant mission immédiat",
+//                'date' => new \Datetime(),
+//                'param' => $id),
+//            array(
+//                'title' => 'Recherche développeur java',
+//                'id' => 3,
+//                'author' => "Andrew",
+//                'content' => "Je recherche à present un dev BackEnd"
+//                . " plein demandant mission immédiat",
+//                'date' => new \Datetime(),
+//                'param' => $id),
+//        );
+//
+//        return $this->render('TEHANDPlatformBundle:Advert:view.html.twig', array(
+//                    'adverts' => $adverts
+//        ));
+//    }
 }

@@ -38,5 +38,17 @@ php bin/console doctrine:schema:update --dump-sql
 
 php bin/console doctrine:schema:update --force
 
+
+****Génération entité*************
+php bin/console doctrine:generate:entity
+
 *********Modification entities******
-php bin/console doctrine:generate:entities OCPlatformBundle:Advert
+php bin/console doctrine:generate:entities TEHANDPlatformBundle:Advert
+
+*******Em features********
+$em->persist()  //-> sauvegarde en mémoire une opération en cours
+$em->detach()   //-> détache et annule l'opération sélectionner des autres opérations
+$em->clear()    //-> annule toutes les opération en cours
+$em->flush()    //-> exécute des opérations sauvegardé en mémoire
+$em->refresh()  //-> actualise et remets la variable à l'état où elle était avant
+$em->remove()   //-> Supprime sur la variable 

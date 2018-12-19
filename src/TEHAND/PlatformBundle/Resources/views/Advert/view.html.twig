@@ -7,8 +7,6 @@
 {% endblock %}
 
 {% block tehandplatform_body %}
-    {% for adverts in adverts %}
-        {% if adverts.param == adverts.id %}
             <h2>{{ adverts.title }}</h2>
             <i>Par {{ adverts.author }}, le {{ adverts.date|date('d/m/Y') }}</i>
 
@@ -29,6 +27,4 @@
                     Supprimer l'annonce
                 </a>
             </p>
-        {% endif %}
-    {% endfor %}
 {% endblock %}
