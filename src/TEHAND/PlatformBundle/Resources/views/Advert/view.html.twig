@@ -16,15 +16,29 @@
             </div>
             <div class="col-md-9">
                 <h2>{{ adverts.title }}</h2>
-                 <i>Par {{ adverts.author }}, le {{ adverts.date|date('d/m/Y') }}</i>
+                <i>Par {{ adverts.author }}, le {{ adverts.date|date('d/m/Y') }}</i>
             </div>
         </div>
     </div> 
-   
+
 
     <div class="well">
         {{ adverts.content }}
     </div>
+    <h4><u>Liste Candidatures</u></h4>
+            {% for listApplication in listApplications %}
+                {% if listApplication %}
+            <ul>
+                <li>
+                    <b>{{listApplication.author}}</b> :     °° <i>{{listApplication.content}}</i> °°
+                </li>
+            </ul>
+        {% else %}
+            <div class="well"> 
+                <i>"Aucune candidatures pour l'instant pour cette annonce ..."</i> 
+            </div>
+        {% endif %}
+    {% endfor %}
     <p>
         <a href="{{ path('tehan_platform_home') }}" class="btn btn-default">
             <i class="glyphicon glyphicon-chevron-left"></i>

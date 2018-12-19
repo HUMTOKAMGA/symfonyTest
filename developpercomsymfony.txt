@@ -52,3 +52,6 @@ $em->clear()    //-> annule toutes les opération en cours
 $em->flush()    //-> exécute des opérations sauvegardé en mémoire
 $em->refresh()  //-> actualise et remets la variable à l'état où elle était avant
 $em->remove()   //-> Supprime sur la variable 
+
+*****Faire une purge de la base de données**********
+php bin/console doctrine:fixtures:load | append

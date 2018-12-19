@@ -74,17 +74,23 @@ class AdvertController extends Controller {
     }
 
     public function viewAction($id) {
-        $repository = $this->getDoctrine()
-                ->getManager()
-                ->getRepository('TEHANDPlatformBundle:Advert');
+        $em = $this->getDoctrine()
+                ->getManager();
         
-        $adverts = $repository->find($id);
+        $adverts = $em->getRepository('TEHANDPlatformBundle:Advert')->find($id);
+        
+        
         
         if(null ===$adverts){
             throw new NotFoundHttpException("L'annonce d'id '".$id."' n'existe pas.");
         }
+        
+        $listApplications = $em->getRepository('TEHANDPlatformBundle:Application')
+                              ->findBy(array('advert' => $adverts));
+        
         return $this->render('TEHANDPlatformBundle:Advert:view.html.twig', array(
-                    'adverts' => $adverts
+                    'adverts' => $adverts,
+                    'listApplications' =>$listApplications
         ));
     }
 
@@ -111,12 +117,12 @@ class AdvertController extends Controller {
         
        
        $application1 = new Application();
-       $application1->getAuthor('Marine');
-       $application1->getContent("J'ai toutes les qualitées requises");
+       $application1->setAuthor('Marine');
+       $application1->setContent("J'ai toutes les qualitées requises");
        
        $application2 = new Application();
-       $application2->getAuthor('Pierre');
-       $application2->getContent("Je suis très motivé");
+       $application2->setAuthor('Pierre');
+       $application2->setContent("Je suis très motivé");
        
        $application1->setAdvert($advert1);
        $application2->setAdvert($advert1);
@@ -343,6 +349,23 @@ class AdvertController extends Controller {
 //                'param' => $id),
 //        );
 //
+//        return $this->render('TEHANDPlatformBundle:Advert:view.html.twig', array(
+//                    'adverts' => $adverts
+//        ));
+//    }
+    //End 18 - 12 - 2019
+    
+    //Début 19 - 12 - 2019
+//    public function viewAction($id) {
+//        $repository = $this->getDoctrine()
+//                ->getManager()
+//                ->getRepository('TEHANDPlatformBundle:Advert');
+//        
+//        $adverts = $repository->find($id);
+//        
+//        if(null ===$adverts){
+//            throw new NotFoundHttpException("L'annonce d'id '".$id."' n'existe pas.");
+//        }
 //        return $this->render('TEHANDPlatformBundle:Advert:view.html.twig', array(
 //                    'adverts' => $adverts
 //        ));

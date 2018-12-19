@@ -4,6 +4,7 @@ namespace TEHAND\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use TEHAND\PlatformBundle\Entity\Image;
+use TEHAND\PlatformBundle\Entity\Category;
 
 /**
  * Advert
@@ -18,6 +19,12 @@ class Advert
      * @ORM\OneToOne(targetEntity="Image", cascade={"persist"})
      */
     private $image;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Category", cascade={"persist"})
+     * @ORM\JoinTable(name="advert_category")
+     */
+    private $categories;
  
     /**
      * @var int
@@ -217,4 +224,45 @@ class Advert
     }
 
     
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add category
+     *
+     * @param \TEHAND\PlatformBundle\Entity\Category $category
+     *
+     * @return Advert
+     */
+    public function addCategory(\TEHAND\PlatformBundle\Entity\Category $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \TEHAND\PlatformBundle\Entity\Category $category
+     */
+    public function removeCategory(\TEHAND\PlatformBundle\Entity\Category $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
 }
