@@ -5,6 +5,7 @@ namespace TEHAND\PlatformBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use TEHAND\PlatformBundle\Entity\Image;
 use TEHAND\PlatformBundle\Entity\Category;
+use TEHAND\PlatformBundle\Entity\Application;
 
 /**
  * Advert
@@ -25,6 +26,12 @@ class Advert
      * @ORM\JoinTable(name="advert_category")
      */
     private $categories;
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Application", mappedBy="advert")
+     */
+    private $applications; //Ici pour signifier qu'une annonce peux faire appelle à +sieurs candidatures
  
     /**
      * @var int
@@ -264,5 +271,41 @@ class Advert
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Add application
+     *
+     * @param \TEHAND\PlatformBundle\Entity\Application $application
+     *
+     * @return Advert
+     */
+    public function addApplication(\TEHAND\PlatformBundle\Entity\Application $application)
+    {
+        $this->applications[] = $application;
+        
+        $application->setAdvert($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove application
+     *
+     * @param \TEHAND\PlatformBundle\Entity\Application $application
+     */
+    public function removeApplication(\TEHAND\PlatformBundle\Entity\Application $application)
+    {
+        $this->applications->removeElement($application);
+    }
+
+    /**
+     * Get applications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getApplications()
+    {
+        return $this->applications;
     }
 }
