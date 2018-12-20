@@ -54,4 +54,12 @@ $em->refresh()  //-> actualise et remets la variable à l'état où elle était 
 $em->remove()   //-> Supprime sur la variable 
 
 *****Faire une purge de la base de données**********
-php bin/console doctrine:fixtures:load | append
+php bin/console doctrine:fixtures:load | --append
+
+**********Gestion des repository ***********
+findAll();
+findOneBy('item','critère','ordre');
+findBy('item','critère');
+findByTitle('');
+findOneByTitle('');
+

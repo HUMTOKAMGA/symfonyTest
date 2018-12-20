@@ -29,7 +29,7 @@ class AdvertController extends Controller {
             //recupération de l'entity Manager de doctrine
             $em = $this->getDoctrine()->getManager();            
             //recupération du repository d'un entity manager donné
-            $advertRepository = $em->getRepository('TEHANDPlatformBundle:Advert')->findAll();
+            $advertRepository = $em->getRepository('TEHANDPlatformBundle:Advert')->myFindAll();
 
 
         return $this->render('TEHANDPlatformBundle:Advert:index.html.twig', array(
