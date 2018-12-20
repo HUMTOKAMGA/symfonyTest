@@ -65,3 +65,5 @@ findOneByTitle('');
 
 QueryBuilder Link References --> https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/query-builder.html
 
+DQL pour jointures --> https://openclassrooms.com/fr/courses/3619856-developpez-votre-site-web-avec-le-framework-symfony/3622991-recuperer-ses-entites-avec-doctrine2
+
