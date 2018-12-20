@@ -79,8 +79,10 @@ class AdvertController extends Controller {
         
         $adverts = $em->getRepository('TEHANDPlatformBundle:Advert')->find($id);
         
-        
-        
+//        $listAdvertSkills = $em->getRepository('TEHANDPlatformBundle:AdvertSkill')
+//                              ->findBy(array('advert' => $adverts));
+//                      var_dump($listAdvertSkills);
+//        
         if(null ===$adverts){
             throw new NotFoundHttpException("L'annonce d'id '".$id."' n'existe pas.");
         }
@@ -180,23 +182,52 @@ class AdvertController extends Controller {
 
     public function editAction($id, Request $request) {
 
-        $advert = array(
-            'title' => 'Recherche développpeur Symfony',
-            'id' => $id,
-            'author' => 'Alexandre',
-            'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',
-            'date' => new \Datetime()
-        );
-
-        return $this->render('TEHANDPlatformBundle:Advert:edit.html.twig',array(
+       $em = $this->getDoctrine()->getManager();
+       
+       //On recupere l'annonce d'id
+       $advert = $em->getRepository('TEHANDPlatformBundle:Advert')->find($id);
+       
+       if(null ===$advert){
+           throw new NotFoundHttpException("L'annonce d'id ".$id."n'existe pas.");
+       }
+       
+       $listCategories = $em->getRepository('TEHANDPlatformBundle:Category')->findAll();
+       
+       //On boucle sur les catégories pour les lier à l'annonce
+       foreach ($listCategories as $category){
+           $advert->addCategory($category);
+       }
+       
+       $em->flush();
+       
+       return $this->render('TEHANDPlatformBundle:Advert:edit.html.twig',array(
             'advert' =>$advert
         ));
     }
 
     public function deleteAction($id) {
+         $em = $this->getDoctrine()->getManager();
+       
+       //On recupere l'annonce d'id
+       $advert = $em->getRepository('TEHANDPlatformBundle:Advert')->find($id);
+       
+       if(null ===$advert){
+           throw new NotFoundHttpException("L'annonce d'id ".$id."n'existe pas.");
+       }
+       
+       $listCategories = $em->getRepository('TEHANDPlatformBundle:Category')->findAll();
+       
+       //On boucle sur les catégories pour les lier à l'annonce
+       foreach ($listCategories as $category){
+           $advert->removeCategory($category);
+       }
+       
+       $em->flush();
+       
 
-
-        return $this->render('TEHANDPlatformBundle:Advert:delete.html.twig');
+        return $this->render('TEHANDPlatformBundle:Advert:delete.html.twig',array(
+            'advert' =>$advert
+        ));
     }
 
     public function viewSlugAction($slug, $year, $_format) {
@@ -368,6 +399,21 @@ class AdvertController extends Controller {
 //        }
 //        return $this->render('TEHANDPlatformBundle:Advert:view.html.twig', array(
 //                    'adverts' => $adverts
+//        ));
+//    }
+    
+//    public function editAction($id, Request $request) {
+//
+//        $advert = array(
+//            'title' => 'Recherche développpeur Symfony',
+//            'id' => $id,
+//            'author' => 'Alexandre',
+//            'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',
+//            'date' => new \Datetime()
+//        );
+//
+//        return $this->render('TEHANDPlatformBundle:Advert:edit.html.twig',array(
+//            'advert' =>$advert
 //        ));
 //    }
 }

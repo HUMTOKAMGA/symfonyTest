@@ -25,32 +25,54 @@
     <div class="well">
         {{ adverts.content }}
     </div>
-    <h4><u>Liste Candidatures</u></h4>
-            {% for listApplication in listApplications %}
-                {% if listApplication %}
-            <ul>
-                <li>
-                    <b>{{listApplication.author}}</b> :     °° <i>{{listApplication.content}}</i> °°
-                </li>
-            </ul>
-        {% else %}
-            <div class="well"> 
-                <i>"Aucune candidatures pour l'instant pour cette annonce ..."</i> 
+
+    <div class="grid">
+        <div class="row align-items-start">
+            <div class="col-md-5">
+                <h4><u>Liste Candidatures</u></h4>
+                        {% for listApplication in listApplications %}
+                            {% if listApplication %}
+                        <ul>
+                            <li>
+                                <b>{{listApplication.author}}</b> :     °° <i>{{listApplication.content}}</i> °°
+                            </li>
+                        </ul>
+                    {% else %}
+                        <div class="well"> 
+                            <i>"Aucune candidatures pour l'instant pour cette annonce ..."</i> 
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </div>
-        {% endif %}
-    {% endfor %}
-    <p>
-        <a href="{{ path('tehan_platform_home') }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-chevron-left"></i>
-            Retour à la liste
-        </a>
-        <a href="{{ path('tehan_platform_edit', {'id': adverts.id}) }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-edit"></i>
-            Modifier l'annonce
-        </a>
-        <a href="{{ path('tehan_platform_delete', {'id': adverts.id}) }}" class="btn btn-danger">
-            <i class="glyphicon glyphicon-trash"></i>
-            Supprimer l'annonce
-        </a>
-    </p>
-{% endblock %}
+            <div class="col-md-7">
+                <h4><u>Liste des catégories liées à l'annonce</u></h4>
+                        {% if not adverts.categories.empty %}
+                    <p>
+                        Cette annonce est parue dans les categories suivantes :<br />
+                        <i> {% for category in adverts.categories %}
+                            {{ category.name }}{% if not loop.last %},&nbsp {% endif %}
+                            {% endfor %}
+                        </i>
+                        </p>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div> 
+
+
+
+                <p>
+                    <a href="{{ path('tehan_platform_home') }}" class="btn btn-default">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Retour à la liste
+                    </a>
+                    <a href="{{ path('tehan_platform_edit', {'id': adverts.id}) }}" class="btn btn-default">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        Modifier l'annonce
+                    </a>
+                    <a href="{{ path('tehan_platform_delete', {'id': adverts.id}) }}" class="btn btn-danger">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        Supprimer l'annonce
+                    </a>
+                </p>
+                {% endblock %}
