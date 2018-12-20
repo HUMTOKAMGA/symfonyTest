@@ -1,1 +1,57 @@
 https://openclassrooms.com/fr/courses/3619856-developpez-votre-site-web-avec-le-framework-symfony/3620436-utilisons-la-console-pour-creer-un-bundle
+1- php bin/console generate:bundle
+2- allée dans composer.json et modifier --> "autoload": {
+												"psr-4": {
+													"": "src/"
+													}
+composer dump-autoload
+
+****************Suppression du Cache Symfony ******************
+ prod--> php bin/console cache:clear --env=prod
+ dev -->php bin/console cache:clear
+ 
+ **********Conditions************
+ {% if membre.age < 12 %}
+  Il faut avoir au moins 12 ans pour ce film.
+{% elseif membre.age < 18 %}
+  OK bon film.
+{% else %}
+  Un peu vieux pour voir ce film non ?
+{% endif %}
+
+************Boucle**************
+<select>
+  {% for valeur, option in liste_options %}
+    <option value="{{ valeur }}">{{ option }}</option>
+  {% endfor %}
+</select>
+
+*************génération Entity console***********
+php bin/console doctrine:database:create
+
+*********création table bd**********
+{% prepation de la requête à utiliser %}
+
+php bin/console doctrine:schema:update --dump-sql
+
+{% application de la requête en base de données %}
+
+php bin/console doctrine:schema:update --force
+
+
+****Génération entité*************
+php bin/console doctrine:generate:entity
+
+*********Modification entities******
+php bin/console doctrine:generate:entities TEHANDPlatformBundle:Advert
+
+*******Em features********
+$em->persist()  //-> sauvegarde en mémoire une opération en cours
+$em->detach()   //-> détache et annule l'opération sélectionner des autres opérations
+$em->clear()    //-> annule toutes les opération en cours
+$em->flush()    //-> exécute des opérations sauvegardé en mémoire
+$em->refresh()  //-> actualise et remets la variable à l'état où elle était avant
+$em->remove()   //-> Supprime sur la variable 
+
+*****Faire une purge de la base de données**********
+php bin/console doctrine:fixtures:load | append

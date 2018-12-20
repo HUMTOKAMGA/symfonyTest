@@ -1,0 +1,40 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/edit.html.twig #}
+
+{% extends "TEHANDPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+    Suppression d'une annonce - {{ parent() }}
+{% endblock %}
+
+{% block tehandplatform_body %}
+
+    <h2>Suppression d'annonces</h2>
+
+    <p>
+        Vous venez de supprimer toutes les catégories de l'annonce :<br />
+    <hr>
+
+    <div class="grid">
+        <div class="row align-items-start">
+            <div class="col-md-3">
+                {% if advert.image is not null %}
+                    <img src="{{ advert.image.url }}" style="width: 113%" alt="{{ advert.image.alt }}">
+                {% endif %}
+            </div>
+            <div class="col-md-9">
+                <h2>{{ advert.title }}</h2>
+                <i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
+            </div>
+        </div>
+    </div> 
+
+</p>
+
+<p>
+    <a href="{{ path('tehan_platform_view', {'id': advert.id}) }}" class="btn btn-default">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Retour à l'annonce
+    </a>
+</p>
+
+{% endblock %}

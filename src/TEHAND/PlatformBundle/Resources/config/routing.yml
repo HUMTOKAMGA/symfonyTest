@@ -1,3 +1,56 @@
-tehand_platform_homepage:
-    path:     /
-    defaults: { _controller: TEHANDPlatformBundle:Default:index }
+tehanbye_the_world:
+    path:    /bye
+    defaults: { _controller: TEHANDPlatformBundle:Bye:bye }
+    
+    # src/OC/PlatformBundle/Resources/config/routing.yml
+
+tehan_platform_home:
+    path:      /{page}
+    defaults: 
+        _controller: TEHANDPlatformBundle:Advert:index 
+        page:    1
+    requirements:
+            page:  \d*
+    
+tehan_platform_view:
+    path:      /advert/{id}
+    defaults:  
+        _controller: TEHANDPlatformBundle:Advert:view 
+    requirements:
+        id:   \d+
+    
+tehan_platform_view_slug:
+    path:      /{year}/{slug}.{format}
+    defaults:  
+        _controller: TEHANDPlatformBundle:Advert:viewSlug 
+        _format:    html
+    requirements:
+        year:    \d{4}
+        _format:  html|xml
+        _locale:  fr|en
+    
+tehan_platform_add:
+    path:      /add
+    defaults:  
+        _controller: TEHANDPlatformBundle:Advert:add 
+        
+tehan_platform_edit:
+    path:      /edit/{id}
+    defaults:  
+        _controller: TEHANDPlatformBundle:Advert:edit
+    requirements:
+        id: \d+
+        
+tehan_platform_delete:
+    path:      /delete/{id}
+    defaults:  
+        _controller: TEHANDPlatformBundle:Advert:delete
+    requirements:
+        id: \d+
+
+tehan_platform_edit_image:
+    path:      /editimg/{id}
+    defaults:  
+        _controller: TEHANDPlatformBundle:Advert:editImage
+    requirements:
+        id: \d+
