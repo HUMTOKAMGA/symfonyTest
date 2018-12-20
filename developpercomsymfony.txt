@@ -63,3 +63,5 @@ findBy('item','critère');
 findByTitle('');
 findOneByTitle('');
 
+QueryBuilder Link References --> https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/query-builder.html
+

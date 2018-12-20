@@ -3,6 +3,7 @@
 namespace TEHAND\PlatformBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * AdvertRepository
@@ -23,4 +24,47 @@ class AdvertRepository extends EntityRepository
         return $results;
     }
     
+    public function MyFindOne($id) {
+        $qb = $this->createQueryBuilder('a');
+        
+        $qb->where('a.id = :id')
+                ->setParameter('id',$id);
+        
+        return $qb->getQuery()
+                ->getResult();
+    }
+    
+    public function findByAuthorAndDate($author, $year) {
+        $qb = $this->createQueryBuilder('a');
+        
+        $qb->where('a.author = :author')
+                ->setParameter('author', $author)
+                ->andWhere('a.date < :year')
+                ->setParameter('year', $year)
+                ->orderBy('a.date', 'DESC');
+        
+        return $qb
+                ->getQuery()
+                ->getResult();
+    }
+    
+    public function whereCurrentYear(QueryBuilder $qb) {
+        $qb
+                ->andWhere('a.date BETWEEN :start AND :end') //Faire un filtre pour une intervale de date
+                ->setParameter('start', new \DateTime(date('Y').'-01-01'))
+                ->setParameter('end', new \DateTime(date('Y').'-12-31'));
+    }
+    
+    public function myFind() {
+        $qb = $this->createQueryBuilder('a');
+        
+        $qb->where('a.author = :author')
+                ->setParameter('author', 'Marine');
+        
+        $this->whereCurrentYear('a.date', 'DESC');
+        
+        return $qb
+                ->getQuery()
+                ->getResult();
+    }
 }

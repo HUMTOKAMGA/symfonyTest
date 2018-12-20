@@ -54,7 +54,7 @@ class AdvertController extends Controller {
                 ->getManager();
         
         $adverts = $em->getRepository('TEHANDPlatformBundle:Advert')->find($id);
-        
+        //var_dump($adverts);
 //        $listAdvertSkills = $em->getRepository('TEHANDPlatformBundle:AdvertSkill')
 //                              ->findBy(array('advert' => $adverts));
 //                      var_dump($listAdvertSkills);
