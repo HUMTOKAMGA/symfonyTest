@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use TEHAND\PlatformBundle\Entity\Advert;
 use TEHAND\PlatformBundle\Entity\Image;
+use \TEHAND\PlatformBundle\Entity\AdvertSkill;
 use TEHAND\PlatformBundle\Entity\Application;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -90,9 +91,13 @@ class AdvertController extends Controller {
         $listApplications = $em->getRepository('TEHANDPlatformBundle:Application')
                               ->findBy(array('advert' => $adverts));
         
+        $listAdvertSkills = $em->getRepository('TEHANDPlatformBundle:AdvertSkill')
+                              ->findBy(array('advert' => $adverts));
+        
         return $this->render('TEHANDPlatformBundle:Advert:view.html.twig', array(
                     'adverts' => $adverts,
-                    'listApplications' =>$listApplications
+                    'listApplications' =>$listApplications,
+                    'listAdvertSkills' =>$listAdvertSkills
         ));
     }
 
@@ -131,17 +136,33 @@ class AdvertController extends Controller {
        //récupération de l'entity manager
        $em = $this->getDoctrine()->getManager();
        
-       //Persistance de l'entité
-       $em->persist($advert1);
+      
        
        $em->persist($application1);
        $em->persist($application2);
+       
+       $listSkills = $em->getRepository('TEHANDPlatformBundle:Skill')->findAll();
+       
+       foreach ($listSkills as $skill) {
+           $advertSkill = new AdvertSkill();
+           
+           $advertSkill->setAdvert($advert1);
+           
+           $advertSkill->setSkill($skill);
+           
+           $advertSkill->setLevel('Expert');
+           
+           $em->persist($advertSkill);
+       }
 
        //visualisation de l'annonce dont l'id est 5
       // $advert2 = $em->getRepository('TEHANDPlatformBundle:Advert')->find(5);
        
        // Je modifie l'annonce en changeant la date
       // $advert2->setDate(new \DateTime());
+       
+        //Persistance de l'entité
+       $em->persist($advert1);
        
        //On passe au flush tout ce qui a été persisté
        $em->flush();
