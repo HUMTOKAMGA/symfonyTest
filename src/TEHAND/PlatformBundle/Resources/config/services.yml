@@ -5,5 +5,8 @@ services:
             - "@mailer"
             - %locale%
             - 50
-parameters:
-    mon_parametre: ma_valeur
+            
+    tehand_platform.email.application_mailer:
+        class: TEHAND\PlatformBundle\Email\ApplicationMailer
+        arguments: 
+            - "@mailer"
