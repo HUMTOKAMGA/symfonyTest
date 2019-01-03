@@ -12,6 +12,7 @@ use TEHAND\PlatformBundle\Entity\Application;
  *
  * @ORM\Table(name="advert")
  * @ORM\Entity(repositoryClass="TEHAND\PlatformBundle\Repository\AdvertRepository")
+ * @ORM\HasLifecycleCallbacks() 
  */
 class Advert
 {
@@ -75,6 +76,20 @@ class Advert
      * @ORM\Column(name="published", type="boolean")
      */
     private $published = true;
+    
+    /**
+     *
+     * @ORM\Column(name="nb_applications", type="integer")
+     */
+    private $nbApplications = 0;
+    
+    public function increaseApplication() {
+        $this->nbApplications++;
+    }
+    
+    public function decreaseApplication() {
+        $this->nbApplications--;
+    }
     
     /**
      * Get id
@@ -308,4 +323,8 @@ class Advert
     {
         return $this->applications;
     }
+    
+//    public function updateDate() {
+//        $this->setUpdatedAt(new \DateTime()); 
+//    }
 }

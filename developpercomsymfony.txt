@@ -67,3 +67,9 @@ QueryBuilder Link References --> https://www.doctrine-project.org/projects/doctr
 
 DQL pour jointures --> https://openclassrooms.com/fr/courses/3619856-developpez-votre-site-web-avec-le-framework-symfony/3622991-recuperer-ses-entites-avec-doctrine2
 
+
+*****Callbacks**************
+
+on commence dabord à renseigner HasLifeCycleCallbaks() à notre entite
+
+ppppu=

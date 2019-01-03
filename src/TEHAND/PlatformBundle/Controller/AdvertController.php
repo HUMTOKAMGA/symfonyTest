@@ -71,7 +71,7 @@ class AdvertController extends Controller {
         
         $listAdvertApp = $em->getRepository('TEHANDPlatformBundle:Application')
                             ->getApplicationsWithAdvert(1);
-                    var_dump($listAdvertApp);
+                    //var_dump($listAdvertApp);
        
         return $this->render('TEHANDPlatformBundle:Advert:view.html.twig', array(
                     'adverts' => $adverts,
