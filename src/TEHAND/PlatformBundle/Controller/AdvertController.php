@@ -69,10 +69,15 @@ class AdvertController extends Controller {
         $listAdvertSkills = $em->getRepository('TEHANDPlatformBundle:AdvertSkill')
                               ->findBy(array('advert' => $adverts));
         
+        $listAdvertApp = $em->getRepository('TEHANDPlatformBundle:Application')
+                            ->getApplicationsWithAdvert(1);
+                    var_dump($listAdvertApp);
+       
         return $this->render('TEHANDPlatformBundle:Advert:view.html.twig', array(
                     'adverts' => $adverts,
                     'listApplications' =>$listApplications,
-                    'listAdvertSkills' =>$listAdvertSkills
+                    'listAdvertSkills' =>$listAdvertSkills,
+                    'listAdvertApp' => $listAdvertApp
         ));
     }
 
