@@ -5,12 +5,15 @@ namespace TEHAND\PlatformBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use TEHAND\PlatformBundle\Entity\Image;
 use TEHAND\PlatformBundle\Entity\Category;
+use TEHAND\PlatformBundle\Entity\Application;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Advert
  *
  * @ORM\Table(name="advert")
  * @ORM\Entity(repositoryClass="TEHAND\PlatformBundle\Repository\AdvertRepository")
+ * @ORM\HasLifecycleCallbacks() 
  */
 class Advert
 {
@@ -25,6 +28,12 @@ class Advert
      * @ORM\JoinTable(name="advert_category")
      */
     private $categories;
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Application", mappedBy="advert")
+     */
+    private $applications; //Ici pour signifier qu'une annonce peux faire appelle à +sieurs candidatures
  
     /**
      * @var int
@@ -68,6 +77,27 @@ class Advert
      * @ORM\Column(name="published", type="boolean")
      */
     private $published = true;
+    
+    /**
+     *
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
+    
+    /**
+     *
+     * @ORM\Column(name="nb_applications", type="integer")
+     */
+    private $nbApplications = 0;
+    
+    public function increaseApplication() {
+        $this->nbApplications++;
+    }
+    
+    public function decreaseApplication() {
+        $this->nbApplications--;
+    }
     
     /**
      * Get id
@@ -264,5 +294,93 @@ class Advert
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Add application
+     *
+     * @param \TEHAND\PlatformBundle\Entity\Application $application
+     *
+     * @return Advert
+     */
+    public function addApplication(\TEHAND\PlatformBundle\Entity\Application $application)
+    {
+        $this->applications[] = $application;
+        
+        $application->setAdvert($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove application
+     *
+     * @param \TEHAND\PlatformBundle\Entity\Application $application
+     */
+    public function removeApplication(\TEHAND\PlatformBundle\Entity\Application $application)
+    {
+        $this->applications->removeElement($application);
+    }
+
+    /**
+     * Get applications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getApplications()
+    {
+        return $this->applications;
+    }
+    
+//    public function updateDate() {
+//        $this->setUpdatedAt(new \DateTime()); 
+//    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Advert
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set nbApplications
+     *
+     * @param integer $nbApplications
+     *
+     * @return Advert
+     */
+    public function setNbApplications($nbApplications)
+    {
+        $this->nbApplications = $nbApplications;
+
+        return $this;
+    }
+
+    /**
+     * Get nbApplications
+     *
+     * @return integer
+     */
+    public function getNbApplications()
+    {
+        return $this->nbApplications;
     }
 }

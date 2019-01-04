@@ -24,6 +24,15 @@
 
     <div class="well">
         {{ adverts.content }}
+        <hr>
+        Cette annonce requiert des compétences tels que:<br />
+        {% if listAdvertSkills|length > 0 %}
+            <ul>
+                {% for advertSkill in listAdvertSkills %}
+                    <li>{{ advertSkill.skill.name }} : niveau {{ advertSkill.level }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}        
     </div>
 
     <div class="grid">
@@ -68,11 +77,11 @@
                     </a>
                     <a href="{{ path('tehan_platform_edit', {'id': adverts.id}) }}" class="btn btn-default">
                         <i class="glyphicon glyphicon-edit"></i>
-                        Modifier l'annonce
+                        Ajouter des catégories
                     </a>
                     <a href="{{ path('tehan_platform_delete', {'id': adverts.id}) }}" class="btn btn-danger">
                         <i class="glyphicon glyphicon-trash"></i>
-                        Supprimer l'annonce
+                        Supprimer toutes les catégories
                     </a>
                 </p>
                 {% endblock %}

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use TEHAND\PlatformBundle\Entity\Advert;
 use TEHAND\PlatformBundle\Entity\Image;
+use \TEHAND\PlatformBundle\Entity\AdvertSkill;
 use TEHAND\PlatformBundle\Entity\Application;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -28,48 +29,23 @@ class AdvertController extends Controller {
             //recupération de l'entity Manager de doctrine
             $em = $this->getDoctrine()->getManager();            
             //recupération du repository d'un entity manager donné
-            $advertRepository = $em->getRepository('TEHANDPlatformBundle:Advert');
-
-        $listAdverts = array(
-            array(
-                'title' => 'Recherche développeur symfony',
-                'id' => 1,
-                'author' => "Alexandre",
-                'content' => "Je recherche à present un dev "
-                . "fullstack plein demandant mission immédiat",
-                'date' => new \Datetime()),
-            array(
-                'title' => 'Recherche développeur Angular',
-                'id' => 2,
-                'author' => "Paul",
-                'content' => "Je recherche à present un dev frontEnd "
-                . "plein demandant mission immédiat",
-                'date' => new \Datetime()),
-            array(
-                'title' => 'Recherche développeur java',
-                'id' => 3,
-                'author' => "Andrew",
-                'content' => "Je recherche à present un dev BackEnd"
-                . " plein demandant mission immédiat",
-                'date' => new \Datetime())
-        );
+            $advertRepository = $em->getRepository('TEHANDPlatformBundle:Advert')->myFindAll();
 
 
         return $this->render('TEHANDPlatformBundle:Advert:index.html.twig', array(
-                    'listAdverts' => $listAdverts
+                    'listAdverts' => $advertRepository
         ));
     }
 
     public function menuAction($limit) {
 
-        $listAdverts = array(
-            array('id' => 2, 'title' => 'Recherche développeur Synfony'),
-            array('id' => 1, 'title' => 'Mission de webmaster'),
-            array('id' => 3, 'title' => 'Offre de stage webdesigner')
-        );
+        //recupération de l'entity Manager de doctrine
+            $em = $this->getDoctrine()->getManager();            
+            //recupération du repository d'un entity manager donné
+            $advertRepository = $em->getRepository('TEHANDPlatformBundle:Advert')->findAll();
 
         return $this->render('TEHANDPlatformBundle:Advert:menu.html.twig', array(
-                    'listAdverts' => $listAdverts
+                    'listAdverts' => $advertRepository
         ));
     }
 
@@ -78,7 +54,7 @@ class AdvertController extends Controller {
                 ->getManager();
         
         $adverts = $em->getRepository('TEHANDPlatformBundle:Advert')->find($id);
-        
+        //var_dump($adverts);
 //        $listAdvertSkills = $em->getRepository('TEHANDPlatformBundle:AdvertSkill')
 //                              ->findBy(array('advert' => $adverts));
 //                      var_dump($listAdvertSkills);
@@ -90,9 +66,18 @@ class AdvertController extends Controller {
         $listApplications = $em->getRepository('TEHANDPlatformBundle:Application')
                               ->findBy(array('advert' => $adverts));
         
+        $listAdvertSkills = $em->getRepository('TEHANDPlatformBundle:AdvertSkill')
+                              ->findBy(array('advert' => $adverts));
+        
+        $listAdvertApp = $em->getRepository('TEHANDPlatformBundle:Application')
+                            ->getApplicationsWithAdvert(1);
+                    //var_dump($listAdvertApp);
+       
         return $this->render('TEHANDPlatformBundle:Advert:view.html.twig', array(
                     'adverts' => $adverts,
-                    'listApplications' =>$listApplications
+                    'listApplications' =>$listApplications,
+                    'listAdvertSkills' =>$listAdvertSkills,
+                    'listAdvertApp' => $listAdvertApp
         ));
     }
 
@@ -131,17 +116,33 @@ class AdvertController extends Controller {
        //récupération de l'entity manager
        $em = $this->getDoctrine()->getManager();
        
-       //Persistance de l'entité
-       $em->persist($advert1);
+      
        
        $em->persist($application1);
        $em->persist($application2);
+       
+       $listSkills = $em->getRepository('TEHANDPlatformBundle:Skill')->findAll();
+       
+       foreach ($listSkills as $skill) {
+           $advertSkill = new AdvertSkill();
+           
+           $advertSkill->setAdvert($advert1);
+           
+           $advertSkill->setSkill($skill);
+           
+           $advertSkill->setLevel('Expert');
+           
+           $em->persist($advertSkill);
+       }
 
        //visualisation de l'annonce dont l'id est 5
       // $advert2 = $em->getRepository('TEHANDPlatformBundle:Advert')->find(5);
        
        // Je modifie l'annonce en changeant la date
       // $advert2->setDate(new \DateTime());
+       
+        //Persistance de l'entité
+       $em->persist($advert1);
        
        //On passe au flush tout ce qui a été persisté
        $em->flush();
@@ -165,7 +166,7 @@ class AdvertController extends Controller {
         $em = $this->getDoctrine()->getManager();
         
         $advert = $em->getRepository('TEHANDPlatformBundle:Advert')->find($advertId);
-        var_dump($advert);
+        //var_dump($advert);
         
         $advert->getImage()->setUrl('test.png');
         
@@ -192,6 +193,7 @@ class AdvertController extends Controller {
        }
        
        $listCategories = $em->getRepository('TEHANDPlatformBundle:Category')->findAll();
+       // $listAdvertCategory = $em->getRepository('TEHANDPlatformBundle:Category')->findAll();
        
        //On boucle sur les catégories pour les lier à l'annonce
        foreach ($listCategories as $category){

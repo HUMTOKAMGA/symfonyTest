@@ -54,4 +54,24 @@ $em->refresh()  //-> actualise et remets la variable à l'état où elle était 
 $em->remove()   //-> Supprime sur la variable 
 
 *****Faire une purge de la base de données**********
-php bin/console doctrine:fixtures:load | append
+php bin/console doctrine:fixtures:load | --append
+
+**********Gestion des repository ***********
+findAll();
+findOneBy('item','critère','ordre');
+findBy('item','critère');
+findByTitle('');
+findOneByTitle('');
+
+QueryBuilder Link References --> https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/query-builder.html
+
+DQL pour jointures --> https://openclassrooms.com/fr/courses/3619856-developpez-votre-site-web-avec-le-framework-symfony/3622991-recuperer-ses-entites-avec-doctrine2
+
+
+*****Callbacks**************
+
+on commence dabord à renseigner HasLifeCycleCallbaks() à notre entite
+
+
+********utilisation des extention ex: slug***********
+https://openclassrooms.com/fr/courses/3619856-developpez-votre-site-web-avec-le-framework-symfony/3623228-les-evenements-et-extensions-doctrine

@@ -10,12 +10,13 @@ use TEHAND\PlatformBundle\Entity\Advert;
  *
  * @ORM\Table(name="application")
  * @ORM\Entity(repositoryClass="TEHAND\PlatformBundle\Repository\ApplicationRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Application
 {
     /**
      *
-     * @ORM\ManyToOne(targetEntity="TEHAND\PlatformBundle\Entity\Advert")
+     * @ORM\ManyToOne(targetEntity="TEHAND\PlatformBundle\Entity\Advert", inversedBy="applications")
      * @ORM\JoinColumn(nullable=false)
      */
     private $advert;
@@ -49,6 +50,20 @@ class Application
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function increase() {
+        $this->getAdvert()->increaseApplication();
+    }
+    
+    /**
+     * @ORM\PreRemove
+     */
+    public function decrease() {
+        $this->getAdvert()->decreaseApplication();
+    }
     
     public function __construct() {
         $this->date = new \DateTime();

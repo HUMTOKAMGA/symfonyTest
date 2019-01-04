@@ -15,7 +15,7 @@ class Application
 {
     /**
      *
-     * @ORM\ManyToOne(targetEntity="TEHAND\PlatformBundle\Entity\Advert")
+     * @ORM\ManyToOne(targetEntity="TEHAND\PlatformBundle\Entity\Advert", inversedBy="applications")
      * @ORM\JoinColumn(nullable=false)
      */
     private $advert;
