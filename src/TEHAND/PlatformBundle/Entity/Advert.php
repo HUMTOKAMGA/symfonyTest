@@ -7,6 +7,9 @@ use TEHAND\PlatformBundle\Entity\Image;
 use TEHAND\PlatformBundle\Entity\Category;
 use TEHAND\PlatformBundle\Entity\Application;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
+use TEHAND\PlatformBundle\Entity\Image;
+
 
 /**
  * Advert
@@ -236,7 +239,7 @@ class Advert
      *
      * @return Advert
      */
-    public function setImage(\TEHAND\PlatformBundle\Entity\Image $image = null)
+    public function setImage(Image $image = null)
     {
         $this->image = $image;
 
@@ -259,7 +262,9 @@ class Advert
      */
     public function __construct()
     {
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->date = new \DateTime();
+        $this->applications = new ArrayCollection();
     }
 
     /**
@@ -269,7 +274,7 @@ class Advert
      *
      * @return Advert
      */
-    public function addCategory(\TEHAND\PlatformBundle\Entity\Category $category)
+    public function addCategory(Category $category)
     {
         $this->categories[] = $category;
 
@@ -281,7 +286,7 @@ class Advert
      *
      * @param \TEHAND\PlatformBundle\Entity\Category $category
      */
-    public function removeCategory(\TEHAND\PlatformBundle\Entity\Category $category)
+    public function removeCategory(Category $category)
     {
         $this->categories->removeElement($category);
     }
@@ -303,7 +308,7 @@ class Advert
      *
      * @return Advert
      */
-    public function addApplication(\TEHAND\PlatformBundle\Entity\Application $application)
+    public function addApplication(Application $application)
     {
         $this->applications[] = $application;
         
@@ -317,7 +322,7 @@ class Advert
      *
      * @param \TEHAND\PlatformBundle\Entity\Application $application
      */
-    public function removeApplication(\TEHAND\PlatformBundle\Entity\Application $application)
+    public function removeApplication(Application $application)
     {
         $this->applications->removeElement($application);
     }
@@ -331,10 +336,7 @@ class Advert
     {
         return $this->applications;
     }
-    
-//    public function updateDate() {
-//        $this->setUpdatedAt(new \DateTime()); 
-//    }
+
 
     /**
      * Set slug
@@ -382,5 +384,12 @@ class Advert
     public function getNbApplications()
     {
         return $this->nbApplications;
+    }
+    
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updateDate() {
+        $this->setUpdateAt(new \DateTime());
     }
 }
