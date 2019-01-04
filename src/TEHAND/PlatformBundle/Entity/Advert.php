@@ -8,7 +8,6 @@ use TEHAND\PlatformBundle\Entity\Category;
 use TEHAND\PlatformBundle\Entity\Application;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
-use TEHAND\PlatformBundle\Entity\Image;
 
 
 /**
