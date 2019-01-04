@@ -72,4 +72,6 @@ DQL pour jointures --> https://openclassrooms.com/fr/courses/3619856-developpez-
 
 on commence dabord à renseigner HasLifeCycleCallbaks() à notre entite
 
-ppppu=
+
+********utilisation des extention ex: slug***********
+https://openclassrooms.com/fr/courses/3619856-developpez-votre-site-web-avec-le-framework-symfony/3623228-les-evenements-et-extensions-doctrine

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use TEHAND\PlatformBundle\Entity\Image;
 use TEHAND\PlatformBundle\Entity\Category;
 use TEHAND\PlatformBundle\Entity\Application;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Advert
@@ -76,6 +77,13 @@ class Advert
      * @ORM\Column(name="published", type="boolean")
      */
     private $published = true;
+    
+    /**
+     *
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
     
     /**
      *
@@ -327,4 +335,52 @@ class Advert
 //    public function updateDate() {
 //        $this->setUpdatedAt(new \DateTime()); 
 //    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Advert
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set nbApplications
+     *
+     * @param integer $nbApplications
+     *
+     * @return Advert
+     */
+    public function setNbApplications($nbApplications)
+    {
+        $this->nbApplications = $nbApplications;
+
+        return $this;
+    }
+
+    /**
+     * Get nbApplications
+     *
+     * @return integer
+     */
+    public function getNbApplications()
+    {
+        return $this->nbApplications;
+    }
 }

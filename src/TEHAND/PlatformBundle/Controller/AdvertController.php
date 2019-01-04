@@ -166,7 +166,7 @@ class AdvertController extends Controller {
         $em = $this->getDoctrine()->getManager();
         
         $advert = $em->getRepository('TEHANDPlatformBundle:Advert')->find($advertId);
-        var_dump($advert);
+        //var_dump($advert);
         
         $advert->getImage()->setUrl('test.png');
         

@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             //Voici la ligne générée par le générateur :
             new TEHAND\PlatformBundle\TEHANDPlatformBundle(),
             new CoreBundle\CoreBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
