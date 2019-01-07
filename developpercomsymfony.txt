@@ -75,3 +75,6 @@ on commence dabord à renseigner HasLifeCycleCallbaks() à notre entite
 
 ********utilisation des extention ex: slug***********
 https://openclassrooms.com/fr/courses/3619856-developpez-votre-site-web-avec-le-framework-symfony/3623228-les-evenements-et-extensions-doctrine
+
+*****Install symfony extention Form ******
+composer require symfony/form

@@ -9,6 +9,13 @@ use Symfony\Component\HttpFoundation\Request;
 use TEHAND\PlatformBundle\Entity\Advert;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 //use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 //use Symfony\Component\HttpFoundation\RedirectResponse;
 //use Symfony\Component\HttpFoundation\Request;
@@ -21,12 +28,24 @@ class AdvertController extends Controller {
 //            throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
 //        }
         //recupération de l'entity Manager de doctrine
+        
+        $nbPerPage = 3;
         $em = $this->getDoctrine()->getManager();
         //recupération du repository d'un entity manager donné
-        $advertRepository = $em->getRepository('TEHANDPlatformBundle:Advert')->findAll();
-
+        $advertRepository = $em->getRepository('TEHANDPlatformBundle:Advert')->getAdverts($page, $nbPerPage);
+        
+        // Calcule du nombre total de page en bd
+        $nbPages = ceil(count($advertRepository) / $nbPerPage);
+        
+        // Si la page n'existe pas on retourne un 404
+        if($page > $nbPages){
+            throw $this->createNotFoundException("la page ".$page." n'existe pas.");
+        }
+        
         return $this->render('TEHANDPlatformBundle:Advert:index.html.twig', array(
-                    'listAdverts' => $advertRepository
+                    'listAdverts' => $advertRepository,
+                    'nbPages'     =>$nbPages,
+                    'page'       =>$page
         ));
     }
 
@@ -83,78 +102,39 @@ class AdvertController extends Controller {
 
         $advert1 = new Advert();
 
-        if ($request->isMethod('POST')) {
-            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
-
-            //redirection vers la page de visualisation de cette annonce
-            return $this->redirectToRoute('tehan_platform_view', array(
-                        'id' => $advert1->getId()
-            ));
-        }
-
+       $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $advert1);
+       
+       $formBuilder
+//               $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $advert1)
+               ->add('date',    DateType::class ) 
+               ->add('title',   TextType::class)
+               ->add('content',   TextareaType::class)
+               ->add('author',   TextType::class)
+               ->add('published',   CheckboxType::class, array('required' => false))
+               ->add('save',   SubmitType::class)
+               ->getForm()
+               ;
+       
+       if($request->isMethod('POST')){
+           $formBuilder->handleRequest($request);
+           
+           if($formBuilder->isValid()){
+               $em = $this->getDoctrine()->getManager();
+               $em->persist($advert1);
+               $em->flush();
+               
+               $request->getSession()->getFlashBag()->add('notice','Annonce bien enregistrée.');
+               
+               return $this->redirectToRoute('tehan_platform_view', array('id' => $advert1->getId()));
+           }
+       }
+       
+       $form = $formBuilder->getForm();
+       
         //Si on n'est pas en POST, alors on affiche le formulaire
-        return $this->render('TEHANDPlatformBundle:Advert:add.html.twig');
-
-//
-//       $advert1 = new Advert();
-//       
-//       
-//       $advert1->setDate(\DateTime::createFromFormat('d-m-Y', "02-12-2018"));
-//       $advert1->setTitle('Recherche développeur Symfony');
-//       $advert1->setAuthor('Andrew');
-//       $advert1->setContent("Pour mission courte");
-//       
-//       $image = new Image();
-//       
-//       $image->setUrl("http://sdz-upload.s3.amazonaws.com/prod/upload/job-de-reve.jpg");
-//       $image->setAlt("Job de rêve");
-//       
-//       $advert1->setImage($image);
-//        
-//       
-//       $application1 = new Application();
-//       $application1->setAuthor('Marine');
-//       $application1->setContent("J'ai toutes les qualitées requises");
-//       
-//       $application2 = new Application();
-//       $application2->setAuthor('Pierre');
-//       $application2->setContent("Je suis très motivé");
-//       
-//       $application1->setAdvert($advert1);
-//       $application2->setAdvert($advert1);
-//       //récupération de l'entity manager
-//       $em = $this->getDoctrine()->getManager();
-//       
-//      
-//       
-//       $em->persist($application1);
-//       $em->persist($application2);
-//       
-//       $listSkills = $em->getRepository('TEHANDPlatformBundle:Skill')->findAll();
-//       
-//       foreach ($listSkills as $skill) {
-//           $advertSkill = new AdvertSkill();
-//           
-//           $advertSkill->setAdvert($advert1);
-//           
-//           $advertSkill->setSkill($skill);
-//           
-//           $advertSkill->setLevel('Expert');
-//           
-//           $em->persist($advertSkill);
-//       }
-//
-//       //visualisation de l'annonce dont l'id est 5
-//      // $advert2 = $em->getRepository('TEHANDPlatformBundle:Advert')->find(5);
-//       
-//       // Je modifie l'annonce en changeant la date
-//      // $advert2->setDate(new \DateTime());
-//       
-//        //Persistance de l'entité
-//       $em->persist($advert1);
-//       
-//       //On passe au flush tout ce qui a été persisté
-//       $em->flush();      
+        return $this->render('TEHANDPlatformBundle:Advert:add.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     public function editImageAction($advertId) {
@@ -238,6 +218,27 @@ class AdvertController extends Controller {
                 "Je suis capable d'afficher l'annonce correspondant au slug" . $slug
                 . "crée en " . $year . " et au format " . $_format . ".");
     }
+    
+    
+    // D2BUT 07-01-2019
+//    public function addAction(Request $request) {
+//
+//        $advert1 = new Advert();
+//
+//       if ($request->isMethod('POST')) {
+//            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+//
+//            //redirection vers la page de visualisation de cette annonce
+//            return $this->redirectToRoute('tehan_platform_view', array(
+//                        'id' => $advert1->getId()
+//            ));
+//        }
+//
+//        //Si on n'est pas en POST, alors on affiche le formulaire
+//        return $this->render('TEHANDPlatformBundle:Advert:add.html.twig');
+//    }
+    // Fin 07-01-2019
+    
 
     //    public function viewAction($id, Request $request) {
 //        

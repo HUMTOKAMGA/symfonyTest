@@ -4,6 +4,7 @@ namespace TEHAND\PlatformBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * AdvertRepository
@@ -82,5 +83,26 @@ class AdvertRepository extends EntityRepository
         //En fin on retourne le résultat
         return $qb->getQuery()
                 ->getResult();
+    }
+    
+    public function getAdverts($page, $nbPerPage) {
+        $query = $this->createQueryBuilder('a')
+                
+                // Jointure sur l'attribut image
+                ->leftJoin('a.image','i')
+                ->addSelect('i')
+                
+                // Jointure sur categories
+                ->leftJoin('a.categories','c')
+                ->addSelect('c')
+                ->orderBy('a.date', 'DESC')
+                ->getQuery();
+        $query
+                //On définit l'annonce à partir de laquelle comencer la liste
+                ->setFirstResult(($page - 1) * $nbPerPage)
+                //Ainsi que le nombre d'annonce à afficher sur une page
+                ->setMaxResults($nbPerPage);
+        
+        return new Paginator($query, true);
     }
 }

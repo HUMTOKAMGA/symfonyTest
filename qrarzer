@@ -1,0 +1,257 @@
+[33mcommit c7f31d007ebaf9652de3c9f8456f5e303dc86ebb[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m)[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Fri Jan 4 11:14:30 2019 +0100
+
+    Clean code advertController
+
+[33mcommit fc657fc65c6f6639a759e12b7ff7f9332d640aad[m[33m ([m[1;31morigin/develop[m[33m)[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Fri Jan 4 09:30:52 2019 +0100
+
+    Clean Advert Entity
+
+[33mcommit 4f4bf0ab4500068f312aeb28c562bc537036a0d0[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Fri Jan 4 09:07:30 2019 +0100
+
+    use mailer extention
+
+[33mcommit ead03a475394f860ad7fbfe733de5ac53b493e2b[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Jan 3 16:09:59 2019 +0100
+
+    Add service Mailler
+
+[33mcommit 22d40895085fccde7217fcac27191d238a18667f[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Jan 3 15:20:21 2019 +0100
+
+    Add nb_application on Application Entity
+
+[33mcommit bbf2d2bf907d0eff92ee9dc33041d970a54e06ce[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Jan 3 11:32:01 2019 +0100
+
+    use getAdvertWithCategories
+
+[33mcommit 8eb5ad379eb6077a40cbdf00ea5cff1404888900[m
+Merge: caaf79b 12e5077
+Author: HUMTOKAMGA <42807703+HUMTOKAMGA@users.noreply.github.com>
+Date:   Thu Dec 20 17:48:47 2018 +0100
+
+    Merge pull request #2 from HUMTOKAMGA/master
+    
+    Use QueryBuilder and DQL to request data on Repository
+
+[33mcommit caaf79bd7abc3a4409efc1b249ce8b4dc3e1b699[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Dec 20 17:34:15 2018 +0100
+
+    Use multiple function of QueryBuilder
+
+[33mcommit 6f9c8fbcb37c47fef8f162263605f2d4bc3885d1[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Dec 20 17:04:31 2018 +0100
+
+    Use multiple function of QueryBuilder
+
+[33mcommit 22625994d03f6bafb7de353b20893ee090fed2c4[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Dec 20 16:21:11 2018 +0100
+
+    Learn to use DQL and QueryBuilder
+
+[33mcommit 38c27700cc4c0b5a6f9fdc31f51c450e9296ddb9[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Dec 20 15:16:23 2018 +0100
+
+    Manage Bidirectionnal relationship between Advert and application
+
+[33mcommit cae5eca637aca12bc4b16803eb4cd47b1660a75b[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Dec 20 12:20:42 2018 +0100
+
+    Adapt view to show skill of advert
+
+[33mcommit f16f60dfdd097b56f8a2704144c771b453b6f50f[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Dec 20 12:11:01 2018 +0100
+
+    Adapt our AdvertSkill to show the result application
+
+[33mcommit 9d6fef3cc8f2b54a975853756aa328c200170cdf[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Dec 20 11:52:10 2018 +0100
+
+    Create FILE skill and purge dataBase
+
+[33mcommit 12e50771f9e44eead228ab44dbad708dc0410f27[m[33m ([m[1;31morigin/master[m[33m)[m
+Merge: 0c6fa53 a3ffa3a
+Author: HUMTOKAMGA <42807703+HUMTOKAMGA@users.noreply.github.com>
+Date:   Thu Dec 20 11:35:41 2018 +0100
+
+    Merge pull request #1 from HUMTOKAMGA/develop
+    
+    Develop
+
+[33mcommit a3ffa3ab9d695137d87392d4963fece2a1d4e485[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Dec 20 11:32:03 2018 +0100
+
+    Create Skill and advertSkill to manage relation ManyToOne
+
+[33mcommit dd4649b57dd142633caa8a43da157a8cc1d25e7d[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Wed Dec 19 17:04:26 2018 +0100
+
+    create a Fixtures file to purged database
+
+[33mcommit 5fa6372283a37278e36604b4509552d67529e051[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Wed Dec 19 14:57:45 2018 +0100
+
+    Use entity Application in AdvertControllor
+
+[33mcommit 88f0e72d6eaeb3e053caa1f92a9d051f13ea79a2[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Wed Dec 19 14:02:25 2018 +0100
+
+    adding Application Entity And relation ManyToOne
+
+[33mcommit 130426ae7fc6e4b5f94f29c04d7118471147208e[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Wed Dec 19 13:55:16 2018 +0100
+
+    Add Entity Application And use relationship ManyToOne
+
+[33mcommit c391f479df3b52e3d240e379a1d87ab7d5f05bde[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Wed Dec 19 10:10:31 2018 +0100
+
+    Add Entity Image And use relationship OneToOne
+
+[33mcommit a3b5ec474dd30179ac4d46d6af91afaec1dd4414[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Mon Dec 17 17:03:14 2018 +0100
+
+    Introduce Entity manager doctrine
+
+[33mcommit efb42954a8e61f1ef0d194dabf10afdec36736ab[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Dec 13 16:44:02 2018 +0100
+
+    Use composer to generate bundle and update dependencies
+
+[33mcommit 6c16fe9e24096b21112dabc134fb6e7e220fc2ee[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Thu Dec 13 12:51:44 2018 +0100
+
+    Show result of all advert
+
+[33mcommit 0a5614f1d15b7c311df0c8f17baa0057acb3b581[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Wed Dec 12 13:35:46 2018 +0100
+
+    Add layout on template
+
+[33mcommit 4b3235852376c4a9bc2697b4d56f8d308aca1141[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Wed Dec 12 11:07:35 2018 +0100
+
+    Manage exception on controller
+
+[33mcommit e56f05f4303cf96f590ab14556b6c2f97a663b67[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Wed Dec 12 10:37:19 2018 +0100
+
+    include add,edit,delete function
+
+[33mcommit d71abc6e1185459d68e6735b495109d721437e51[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Wed Dec 12 10:15:15 2018 +0100
+
+    Manage session flash Variable
+
+[33mcommit 2d3f93ab8d90613277a9cd0ae06af92ae6f01d43[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Wed Dec 12 09:50:56 2018 +0100
+
+    Manage session
+
+[33mcommit 142306feabda59beb96434c7284205a78af18a9e[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Tue Dec 11 16:37:43 2018 +0100
+
+    Manage JsonResponse
+
+[33mcommit 26ec78fb99ea418be3cee79a70c77213b0f1dd91[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Tue Dec 11 16:30:11 2018 +0100
+
+    Manage Redirect
+
+[33mcommit 4d660dacb5f8d637f421feeea09ff847276fe013[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Tue Dec 11 16:04:08 2018 +0100
+
+    Manage Response an Request
+
+[33mcommit d428be318d82a91238d5d6dde32e8ff20a46814e[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Tue Dec 11 14:06:03 2018 +0100
+
+    Manage generate root
+
+[33mcommit e52e1c3d5186e73c213ecc0223446d67c6d1892e[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Tue Dec 11 13:15:59 2018 +0100
+
+    Add multiple root on same controller
+
+[33mcommit 9e7ab444a1e681e5f9201abfd30c9b82b6366d54[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Tue Dec 11 10:30:24 2018 +0100
+
+    delete all unUsed files.
+
+[33mcommit 121dc1a0375dba369691e3fd2aecb87f1981c4c9[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Tue Dec 11 10:25:56 2018 +0100
+
+    Introduct template and show
+
+[33mcommit dc868b9711d5c378bb22589a4f8243f0dc347c79[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Mon Dec 10 18:21:04 2018 +0100
+
+    Create and edit my First Controller file
+
+[33mcommit c911658db29110098435309d0c00ee0d9855b3ed[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Mon Dec 10 18:15:56 2018 +0100
+
+    Add manual root bundle
+
+[33mcommit e28637278043364d111dcbf7c101d0868387715d[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Mon Dec 10 16:51:13 2018 +0100
+
+    Rajout du templating twig dans config.yml
+
+[33mcommit e9174ff5ae2f6c71f282e34ff8f5b145988bdf85[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Mon Dec 10 16:46:42 2018 +0100
+
+    Rajout des balises html dans bundle
+
+[33mcommit 0c6fa5379ef75c0f658272997492d4d85efca977[m[33m ([m[1;32mmaster[m[33m)[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Mon Dec 10 16:34:34 2018 +0100
+
+    Activation de l'utilisation des templates twig
+
+[33mcommit 045bb6a8dbc2a8d1e5d6befa5f2592862565e511[m
+Author: andrew.humtokamga <andrew.humtokamga@FRIDF-L00029.sii.fr>
+Date:   Mon Dec 10 16:29:07 2018 +0100
+
+    Premier commit
