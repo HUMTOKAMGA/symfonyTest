@@ -101,6 +101,8 @@ class AdvertController extends Controller {
     public function addAction(Request $request) {
 
         $advert1 = new Advert();
+        
+        $advert1->setDate(new \DateTime());
 
        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $advert1);
        
@@ -164,6 +166,19 @@ class AdvertController extends Controller {
 
         //On recupere l'annonce d'id
         $advert = $em->getRepository('TEHANDPlatformBundle:Advert')->find($id);
+        
+//        $formBuilder= $this->get('form.factory')->createBuilder(FormType::class, $advert);
+//        
+//           $formBuilder
+               $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $advert)
+               ->add('date',    DateType::class ) 
+               ->add('title',   TextType::class)
+               ->add('content',   TextareaType::class)
+               ->add('author',   TextType::class)
+               ->add('published',   CheckboxType::class, array('required' => false))
+               ->add('save',   SubmitType::class)
+               ->getForm()
+               ;
 
         if (null === $advert) {
             throw new NotFoundHttpException("L'annonce d'id " . $id . "n'existe pas.");
@@ -178,7 +193,8 @@ class AdvertController extends Controller {
             ));
         }
         return $this->render('TEHANDPlatformBundle:Advert:edit.html.twig', array(
-                    'advert' => $advert
+                    'advert' => $advert,
+                    'form' => $formBuilder->createView(),
         ));
 
 //        $listCategories = $em->getRepository('TEHANDPlatformBundle:Category')->findAll();
